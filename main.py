@@ -9,6 +9,14 @@ class Game:
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT)) #defines game size from 'config.py'
         self.clock = pygame.time.Clock()
         self.running = True
+    
+    def createTilemap(self):
+        for i, row in enumerate(tilemap):
+            for j, column in enumerate(row):
+                if column == 'B':
+                    Block(self, j, i)
+                if column == 'P':
+                    Player(self, j, i)
 
     def new(self):
         #a new game starts
@@ -19,7 +27,7 @@ class Game:
         self.enemies = pygame.sprite.LayeredUpdates()
         self.attacks = pygame.sprite.LayeredUpdates()
 
-        self.player = Player(self, 1, 2)
+        self.createTilemap()
 
     def events(self):
         #game loop events
