@@ -6,7 +6,8 @@ import sys
 class Game:
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT)) #defines game size from 'config.py'
+        #*defines game size from 'config.py'
+        self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
         self.clock = pygame.time.Clock()
         self.running = True
 
@@ -23,7 +24,7 @@ class Game:
                     Player(self, j, i)
 
     def new(self):
-        #a new game starts
+        #* A new game starts
         self.playing = True
 
         self.all_sprites = pygame.sprite.LayeredUpdates()
@@ -34,25 +35,25 @@ class Game:
         self.createTilemap()
 
     def events(self):
-        #game loop events
+        #* Game loop events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.playing = False
                 self.running = False
 
     def update(self):
-        #game loop updates
+        #* Game loop updates
         self.all_sprites.update()
 
     def draw(self):
-        #game loop draw
+        #* Game loop draw
         self.screen.fill(BLACK)
         self.all_sprites.draw(self.screen)
         self.clock.tick(FPS)
         pygame.display.update()
 
     def main(self):
-        #game loop
+        #* Game loop
         while self.playing:
             self.events()
             self.update()
