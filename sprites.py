@@ -3,6 +3,7 @@ from config import *
 import math
 import random
 
+
 class SpriteSheet:
     def __init__(self, file):
         self.sheet = pygame.image.load(file).convert()
@@ -12,6 +13,7 @@ class SpriteSheet:
         sprite.blit(self.sheet, (0,0), (x, y, width, height))
         sprite.set_colorkey(BLACK)
         return sprite
+
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
@@ -76,7 +78,6 @@ class Player(pygame.sprite.Sprite):
                 if self.x_change < 0:
                     self.rect.x = hits[0].rect.right
 
-
         if direction == "y":
             hits = pygame.sprite.spritecollide(self, self.game.blocks, False)
             if hits:
@@ -104,6 +105,7 @@ class Block(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
+
 
 class Ground(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
