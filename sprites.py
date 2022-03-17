@@ -17,7 +17,6 @@ class SpriteSheet:
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
-
         self.game = game
         self._layer = PLAYER_LAYER
         self.groups = self.game.all_sprites
@@ -43,6 +42,7 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.movement()
         self.animate()
+        self.collide_enemy()
 
         self.rect.x += self.x_change
         self.collide_blocks('x')
@@ -53,33 +53,37 @@ class Player(pygame.sprite.Sprite):
         self.y_change = 0
 
     #TODO See if this can be solved in an easier way to both use arrows and 'wasd'
+    #? Switch statement:    https://pythongeeks.org/switch-in-python/
+    #?                      https://www.educba.com/python-switch-statement/
+    
     def movement(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
+            for sprite in self.game.all_sprites:
+                sprite.rect.x += PLAYER_SPEED
             self.x_change -= PLAYER_SPEED
             self.facing = 'left'
         if keys[pygame.K_RIGHT]:
+            for sprite in self.game.all_sprites:
+                sprite.rect.x -= PLAYER_SPEED
             self.x_change += PLAYER_SPEED
             self.facing = 'right'
         if keys[pygame.K_UP]:
+            for sprite in self.game.all_sprites:
+                sprite.rect.y += PLAYER_SPEED
             self.y_change -= PLAYER_SPEED
             self.facing = 'up'
         if keys[pygame.K_DOWN]:
+            for sprite in self.game.all_sprites:
+                sprite.rect.y -= PLAYER_SPEED
             self.y_change += PLAYER_SPEED
             self.facing = 'down'
-        # if keys[pygame.K_a]:
-        #     self.x_change -= PLAYER_SPEED
-        #     self.facing = 'left'
-        # if keys[pygame.K_d]:
-        #     self.x_change += PLAYER_SPEED
-        #     self.facing = 'right'
-        # if keys[pygame.K_w]:
-        #     self.y_change -= PLAYER_SPEED
-        #     self.facing = 'up'
-        # if keys[pygame.K_s]:
-        #     self.y_change += PLAYER_SPEED
-        #     self.facing = 'down'
-
+    
+    def collide_enemy(self):
+        hits = pygame.sprite.spritecollide(self, self.game.enemies, False)
+        if hits:
+            self.kill()
+            self.game.playing = False
 
     def collide_blocks(self, direction):
         if direction == "x":
@@ -211,6 +215,7 @@ class Enemy(pygame.sprite.Sprite):
                 self.facing = 'left'
 
     def animate(self):
+        #*Commented out as the enemies only move horizontally at the moment.
         # down_animations = [self.game.enemy_spritesheet.get_sprite(3, 2, self.width, self.height),
         #                    self.game.enemy_spritesheet.get_sprite(35, 2, self.width, self.height),
         #                    self.game.enemy_spritesheet.get_sprite(68, 2, self.width, self.height)]
@@ -227,6 +232,8 @@ class Enemy(pygame.sprite.Sprite):
                             self.game.enemy_spritesheet.get_sprite(35, 66, self.width, self.height),
                             self.game.enemy_spritesheet.get_sprite(68, 66, self.width, self.height)]
         
+        #*Commented out as the enemies only move horizontally at the moment.
+
         # if self.facing == "down":
         #     # If we are standing still 'change = 0', we set our image to standard 'down animation'
         #     if self.y_change == 0:
