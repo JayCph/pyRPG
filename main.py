@@ -13,6 +13,7 @@ class Game:
 
         self.character_spritesheet = SpriteSheet('img/character.png')
         self.terrain_spritesheet = SpriteSheet('img/terrain.png')
+        self.enemy_spritesheet = SpriteSheet('img/enemy.png')
     
     def createTilemap(self):
         for i, row in enumerate(tilemap):
@@ -20,6 +21,8 @@ class Game:
                 Ground(self, j, i)
                 if column == 'B':
                     Block(self, j, i)
+                if column == 'E':
+                    Enemy(self, j, i)
                 if column == 'P':
                     Player(self, j, i)
 
@@ -27,6 +30,7 @@ class Game:
         #* A new game starts
         self.playing = True
 
+        # Declaration of various sprite groups
         self.all_sprites = pygame.sprite.LayeredUpdates()
         self.blocks = pygame.sprite.LayeredUpdates()
         self.enemies = pygame.sprite.LayeredUpdates()
