@@ -1,3 +1,5 @@
+from email import contentmanager
+from re import T
 import pygame
 from config import *
 import math
@@ -55,7 +57,7 @@ class Player(pygame.sprite.Sprite):
     #TODO See if this can be solved in an easier way to both use arrows and 'wasd'
     #? Switch statement:    https://pythongeeks.org/switch-in-python/
     #?                      https://www.educba.com/python-switch-statement/
-    
+
     def movement(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
@@ -313,3 +315,35 @@ class Ground(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
+
+
+class Button:
+    def __init__(self, x, y, width, height, fg, bg, content, fontsize):
+        self.font = pygame.font.Font('orangejuice2.ttf', fontsize)
+        self.content = content
+    
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+
+        self.fg = fg
+        self.bg = bg
+
+        self.image = pygame.Surface((self.width, self.height))
+        self.image.fill(self.bg)
+        self.rect = self.image.get_rect()
+
+        self.rect.x = self.x
+        self.rect.y = self.y
+
+        self.text = self.font.render(self.content, True, self.fg)
+        self.text_rect = self.text.get_rect(center=(self.width/2, self.height/2))
+        self.image.blit(self.text, self.text_rect)
+
+    def is_pressed(self, pos, pressed): # Takes your mouse position
+        if self.rect.collidepoint(pos): # See if it collides with the button(rectangle)
+            if pressed[0]: # Check if its pressed or not
+                return True
+            return False
+        return False

@@ -1,3 +1,5 @@
+import pygame
+
 WIN_WIDTH = 640
 WIN_HEIGHT = 480
 TILESIZE = 32
@@ -14,6 +16,10 @@ ENEMY_SPEED = 3
 RED = (255, 0, 0)
 BLACK = (0, 0, 0)
 BLUE = (0, 0, 255)
+WHITE = (255, 255, 255)
+TRANSPARENT = pygame.Color("#00ff0080")
+
+
 
 tilemap = [
     'BBBBBBBBBBBBBBBBBBBB',
