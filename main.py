@@ -16,6 +16,7 @@ class Game:
         self.character_spritesheet = SpriteSheet('img/character.png')
         self.terrain_spritesheet = SpriteSheet('img/terrain.png')
         self.enemy_spritesheet = SpriteSheet('img/enemy.png')
+        self.attack_spritesheet = SpriteSheet('img/attack.png')
         self.intro_background = pygame.image.load('./img/introbackground.png')
         self.go_background = pygame.image.load('./img/gameover.png')
 

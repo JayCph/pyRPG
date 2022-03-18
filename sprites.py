@@ -347,3 +347,17 @@ class Button:
                 return True
             return False
         return False
+
+class Attack(pygame.sprite.Sprite):
+
+    def __init__(self, game, x, y):
+
+        self.game = game
+        self.x = x * TILESIZE
+        self.y = y * TILESIZE
+        self.width = TILESIZE
+        self.height = TILESIZE
+
+        self.animation_loop = 0
+
+        self.image
